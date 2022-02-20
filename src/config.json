@@ -1,5 +1,3 @@
 {
-    "avalanche": {
-        "chain": "testnet"
-    }
+    "network": "testnet"
 }

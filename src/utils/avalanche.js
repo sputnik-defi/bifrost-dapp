@@ -29,7 +29,7 @@ const AVALANCHE_TESTNET_PARAMS = {
 export const setupAvaxClient = async () => {
   const { web3, account: ethAccount } = await connectEthWallet();
 
-  return await new Avalanche(web3, ethAccount);
+  return new Avalanche(web3, ethAccount);
 };
 
 export const connectEthWallet = async () => {
@@ -42,7 +42,7 @@ export const connectEthWallet = async () => {
   }
 
   let params = [];
-  switch (config.avalanche.chain) {
+  switch (config.network) {
     case "mainnet":
       params = [AVALANCHE_MAINNET_PARAMS];
       break;
@@ -60,8 +60,6 @@ export const connectEthWallet = async () => {
     });
 
   const web3 = new Web3(window.ethereum);
-
-  const network = await web3.eth.net.getNetworkType();
 
   await window.ethereum.enable();
   const account = await web3.eth.getAccounts();

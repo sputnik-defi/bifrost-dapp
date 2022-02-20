@@ -26,10 +26,13 @@ const ExchangeForm = ({ clients, setupAvax, setupTzs }) => {
   };
 
   useEffect(() => {
-    if (clients["avalanche"]) {
-      setAvaxAccount(clients["avalanche"].address);
+    if (clients.avalanche) {
+      setAvaxAccount(clients.avalanche.address);
     }
-  }, [setupAvaxAccount]);
+    if (clients.tezos) {
+      setTzsAccount(clients.tezos.address);
+    }
+  }, [setupAvaxAccount, setupTzsAccount]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -94,6 +97,7 @@ const ExchangeForm = ({ clients, setupAvax, setupTzs }) => {
                     <img src={TzsLogo} width={15} />
                   </Icon>
                 }
+                onClick={!tzsAccount ? setupTzsAccount : null}
               >
                 {(!tzsAccount || tzsAccount.length == 0) && "Connect"}
                 {tzsAccount &&
