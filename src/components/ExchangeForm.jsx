@@ -1,16 +1,36 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Grid, Icon, SvgIcon } from "@mui/material";
+import { Grid, Icon } from "@mui/material";
 import AvaxLogo from "../assets/images/avax_logo.svg";
 import TzsLogo from "../assets/images/tzs_logo.svg";
 
-const ExchangeForm = () => {
+const ExchangeForm = ({ clients, setupAvax, setupTzs }) => {
+  const [avaxAccount, setAvaxAccount] = useState("");
+  const [tzsAccount, setTzsAccount] = useState("");
+
+  const setupAvaxAccount = async () => {
+    try {
+      setupAvax();
+    } catch (err) {}
+  };
+
+  const setupTzsAccount = async () => {
+    try {
+      setupTzs();
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    if (clients["avalanche"]) {
+      setAvaxAccount(clients["avalanche"].address);
+    }
+  }, [setupAvaxAccount]);
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -50,7 +70,6 @@ const ExchangeForm = () => {
           <Grid container spacing={2} sx={{ mt: 1 }}>
             <Grid item xs={6}>
               <Button
-                type="submit"
                 fullWidth
                 variant="outlined"
                 startIcon={
@@ -58,13 +77,16 @@ const ExchangeForm = () => {
                     <img src={AvaxLogo} width={20} />
                   </Icon>
                 }
+                onClick={!avaxAccount ? setupAvaxAccount : null}
               >
-                Connect
+                {(!avaxAccount || avaxAccount.length == 0) && "Connect"}
+                {avaxAccount &&
+                  avaxAccount.length > 0 &&
+                  shortAccountString(5, 5, avaxAccount)}
               </Button>
             </Grid>
             <Grid item xs={6}>
               <Button
-                type="submit"
                 fullWidth
                 variant="outlined"
                 startIcon={
@@ -73,22 +95,24 @@ const ExchangeForm = () => {
                   </Icon>
                 }
               >
-                Connect
+                {(!tzsAccount || tzsAccount.length == 0) && "Connect"}
+                {tzsAccount &&
+                  tzsAccount.length > 0 &&
+                  shortAccountString(5, 5, tzsAccount)}
               </Button>
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
+          <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Swap
           </Button>
         </Box>
       </Box>
     </Container>
   );
+};
+
+const shortAccountString = (first, last, str) => {
+  return str.substring(0, first) + "..." + str.substring(str.length - last);
 };
 
 export default ExchangeForm;
