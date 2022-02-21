@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import ExchangeForm from "./components/ExchangeForm";
 import { setupAvaxClient } from "./utils/avalanche";
 import { setupTzsClient } from "./utils/tezos";
+import ConnectWallets from "./components/ConnectWallets";
 
 const App = () => {
   const [clients, setClients] = useState({
@@ -31,12 +32,28 @@ const App = () => {
     }
   };
 
+  let exchangePairs = [
+    {
+      avalanche: "AVAX",
+      tezos: "WAVAX",
+    },
+    {
+      avalanche: "USDC",
+      tezos: "WUSDC",
+    },
+  ];
+
   return (
     <div className="App">
       <ExchangeForm
-        clients={clientsRef.current}
-        setupAvax={setupAvaxWallet}
-        setupTzs={setupTzsWallet}
+        exchangePairs={exchangePairs}
+        connectWallets={
+          <ConnectWallets
+            clients={clientsRef.current}
+            setupAvax={setupAvaxWallet}
+            setupTzs={setupTzsWallet}
+          />
+        }
       ></ExchangeForm>
     </div>
   );
