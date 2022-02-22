@@ -32,16 +32,16 @@ const App = () => {
     }
   };
 
-  let exchangePairs = [
-    {
+  let exchangePairs = {
+    0: {
       avalanche: "AVAX",
       tezos: "WAVAX",
     },
-    {
+    1: {
       avalanche: "USDC",
       tezos: "WUSDC",
     },
-  ];
+  };
 
   return (
     <div className="App">

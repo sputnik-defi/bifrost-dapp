@@ -5,32 +5,15 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import {
-  ButtonGroup,
-  Fab,
-  FormControl,
-  Grid,
-  Icon,
-  IconButton,
-  InputBase,
-  InputLabel,
-  Link,
-  MenuItem,
-  Paper,
-  Select,
-  Stack,
-  ToggleButton,
-  ToggleButtonGroup,
-} from "@mui/material";
+import { IconButton, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import ArrowsIcon from "../assets/images/arrows.svg";
-import { height } from "@mui/system";
 
 const ExchangeForm = ({ exchangePairs, connectWallets }) => {
-  const [pairID, setPairID] = useState(0);
+  const [pairID, setPairID] = useState("0");
   const [fromAvalanche, setFromAvalanche] = useState(true);
 
   const handlePairID = (e, id) => {
-    setPairID(id);
+    setPairID(id[id.length - 1]);
   };
 
   return (
@@ -54,11 +37,12 @@ const ExchangeForm = ({ exchangePairs, connectWallets }) => {
               value={pairID}
               onChange={handlePairID}
             >
-              {exchangePairs.map((obj, i) => {
-                console.log(i);
+              {Object.keys(exchangePairs).map((key) => {
                 return (
-                  <ToggleButton value={i}>
-                    {fromAvalanche ? obj.avalanche : obj.tezos}
+                  <ToggleButton value={key}>
+                    {fromAvalanche
+                      ? exchangePairs[key].avalanche
+                      : exchangePairs[key].tezos}
                   </ToggleButton>
                 );
               })}
@@ -91,11 +75,12 @@ const ExchangeForm = ({ exchangePairs, connectWallets }) => {
               value={pairID}
               onChange={handlePairID}
             >
-              {exchangePairs.map((obj, i) => {
-                console.log(i);
+              {Object.keys(exchangePairs).map((key) => {
                 return (
-                  <ToggleButton value={i}>
-                    {!fromAvalanche ? obj.avalanche : obj.tezos}
+                  <ToggleButton value={key}>
+                    {!fromAvalanche
+                      ? exchangePairs[key].avalanche
+                      : exchangePairs[key].tezos}
                   </ToggleButton>
                 );
               })}
@@ -120,10 +105,6 @@ const ExchangeForm = ({ exchangePairs, connectWallets }) => {
       </Box>
     </Container>
   );
-};
-
-const shortAccountString = (first, last, str) => {
-  return str.substring(0, first) + "..." + str.substring(str.length - last);
 };
 
 export default ExchangeForm;
