@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
+import { BigNumber } from "bignumber.js";
 import { Grid, Icon } from "@mui/material";
 import AvaxLogo from "../assets/images/avax_logo.svg";
 import TzsLogo from "../assets/images/tzs_logo.svg";
 
-const ConnectWallets = ({ clients, setupAvax, setupTzs }) => {
+const ConnectWallets = ({ clients, setupAvax, setupTzs, setBalances }) => {
   const [avaxAccount, setAvaxAccount] = useState("");
   const [tzsAccount, setTzsAccount] = useState("");
+  const [avaxBalance, setAvaxBalance] = useState(0.0);
+  const [tzsBalance, setTzsBalance] = useState(0.0);
 
   const setupAvaxAccount = async () => {
     try {
@@ -20,6 +23,23 @@ const ConnectWallets = ({ clients, setupAvax, setupTzs }) => {
     } catch (err) {}
   };
 
+  const updateBalances = async () => {
+    let avax = 0.0;
+    let tzs = 0.0;
+
+    if (clients.avalanche) {
+      avax = await clients.avalanche.balance();
+      console.log(avax);
+    }
+
+    setBalances({
+      avax: bigIntToFloat(avax, 18, 6),
+      tzs: bigIntToFloat(tzs, 18, 6),
+    });
+
+    setAvaxBalance(bigIntToFloat(avax, 18, 6));
+  };
+
   useEffect(() => {
     if (clients.avalanche) {
       setAvaxAccount(clients.avalanche.address);
@@ -28,6 +48,10 @@ const ConnectWallets = ({ clients, setupAvax, setupTzs }) => {
       setTzsAccount(clients.tezos.address);
     }
   }, [setupAvaxAccount, setupTzsAccount]);
+
+  useEffect(() => {
+    updateBalances();
+  }, [avaxAccount, tzsAccount]);
 
   return (
     <Grid container spacing={2} sx={{ mt: 1 }}>
@@ -71,6 +95,12 @@ const ConnectWallets = ({ clients, setupAvax, setupTzs }) => {
 
 const shortAccountString = (first, last, str) => {
   return str.substring(0, first) + "..." + str.substring(str.length - last);
+};
+
+const bigIntToFloat = (number, decimals, precision) => {
+  return new BigNumber(number)
+    .div(new BigNumber(10).pow(decimals))
+    .toFixed(precision);
 };
 
 export default ConnectWallets;

@@ -1,5 +1,6 @@
 export class Tezos {
-  constructor(address) {
+  constructor(tzs, address) {
+    this.tzs = tzs;
     this.address = address;
   }
 

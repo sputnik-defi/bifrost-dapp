@@ -5,7 +5,7 @@ export class Avalanche {
   }
 
   async balance() {
-    return this.web3.eth.getBalance(this.address);
+    return await this.web3.eth.getBalance(this.address);
   }
 
   async tokenBalance(tokenContract) {

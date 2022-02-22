@@ -5,10 +5,17 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { IconButton, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import {
+  IconButton,
+  Stack,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
 import ArrowsIcon from "../assets/images/arrows.svg";
+import AvaxLogo from "../assets/images/avax_logo.svg";
+import TzsLogo from "../assets/images/tzs_logo.svg";
 
-const ExchangeForm = ({ exchangePairs, connectWallets }) => {
+const ExchangeForm = ({ exchangePairs, balances, connectWallets }) => {
   const [pairID, setPairID] = useState("0");
   const [fromAvalanche, setFromAvalanche] = useState(true);
 
@@ -30,7 +37,11 @@ const ExchangeForm = ({ exchangePairs, connectWallets }) => {
           Swap Tokens
         </Typography>
         <Box component="form" noValidate sx={{ mt: 2 }}>
-          <Box display="flex" justifyContent="flex-start">
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <ToggleButtonGroup
               size="small"
               color="primary"
@@ -41,24 +52,34 @@ const ExchangeForm = ({ exchangePairs, connectWallets }) => {
                 return (
                   <ToggleButton value={key}>
                     {fromAvalanche
-                      ? exchangePairs[key].avalanche
-                      : exchangePairs[key].tezos}
+                      ? exchangePairs[key].avalanche.name
+                      : exchangePairs[key].tezos.name}
                   </ToggleButton>
                 );
               })}
             </ToggleButtonGroup>
-          </Box>
+            <Typography align="right">
+              balance: {fromAvalanche ? balances.avax : balances.tzs}
+            </Typography>
+          </Stack>
           <TextField
             margin="normal"
             fullWidth
             type="number"
-            placeholder={
-              fromAvalanche
-                ? exchangePairs[pairID].avalanche
-                : exchangePairs[pairID].tezos
-            }
+            placeholder="0.00"
             autoFocus
-            InputProps={{ inputProps: { min: 0 } }}
+            InputProps={{
+              inputProps: {
+                step: "0.01",
+                min: 0,
+                style: { textAlign: "right" },
+              },
+              startAdornment: fromAvalanche ? (
+                <img src={AvaxLogo} width={25} />
+              ) : (
+                <img src={TzsLogo} width={20} />
+              ),
+            }}
           />
           <IconButton
             color="primary"
@@ -68,7 +89,11 @@ const ExchangeForm = ({ exchangePairs, connectWallets }) => {
           >
             <img src={ArrowsIcon} width={35} />
           </IconButton>
-          <Box display="flex" justifyContent="flex-start">
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <ToggleButtonGroup
               size="small"
               color="primary"
@@ -79,23 +104,32 @@ const ExchangeForm = ({ exchangePairs, connectWallets }) => {
                 return (
                   <ToggleButton value={key}>
                     {!fromAvalanche
-                      ? exchangePairs[key].avalanche
-                      : exchangePairs[key].tezos}
+                      ? exchangePairs[key].avalanche.name
+                      : exchangePairs[key].tezos.name}
                   </ToggleButton>
                 );
               })}
             </ToggleButtonGroup>
-          </Box>
+            <Typography align="right">
+              balance: {!fromAvalanche ? balances.avax : balances.tzs}
+            </Typography>
+          </Stack>
           <TextField
             margin="normal"
             fullWidth
             type="number"
-            placeholder={
-              !fromAvalanche
-                ? exchangePairs[pairID].avalanche
-                : exchangePairs[pairID].tezos
-            }
+            placeholder="0.00"
             disabled={true}
+            InputProps={{
+              inputProps: {
+                style: { textAlign: "right" },
+              },
+              startAdornment: !fromAvalanche ? (
+                <img src={AvaxLogo} width={25} />
+              ) : (
+                <img src={TzsLogo} width={20} />
+              ),
+            }}
           />
           {connectWallets}
           <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>

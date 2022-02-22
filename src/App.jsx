@@ -10,6 +10,10 @@ const App = () => {
     avalanche: null,
     tezos: null,
   });
+  const [balances, setBalances] = useState({
+    avax: 0.0,
+    tzs: 0.0,
+  });
 
   const clientsRef = useRef();
   clientsRef.current = clients;
@@ -34,12 +38,20 @@ const App = () => {
 
   let exchangePairs = {
     0: {
-      avalanche: "AVAX",
-      tezos: "WAVAX",
+      avalanche: {
+        name: "AVAX",
+      },
+      tezos: {
+        name: "WAVAX",
+      },
     },
     1: {
-      avalanche: "USDC",
-      tezos: "WUSDC",
+      avalanche: {
+        name: "USDC",
+      },
+      tezos: {
+        name: "WUSDC",
+      },
     },
   };
 
@@ -47,11 +59,13 @@ const App = () => {
     <div className="App">
       <ExchangeForm
         exchangePairs={exchangePairs}
+        balances={balances}
         connectWallets={
           <ConnectWallets
             clients={clientsRef.current}
             setupAvax={setupAvaxWallet}
             setupTzs={setupTzsWallet}
+            setBalances={setBalances}
           />
         }
       ></ExchangeForm>
