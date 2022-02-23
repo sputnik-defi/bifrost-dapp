@@ -1,11 +1,18 @@
 import "./App.css";
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
+import Particles from "react-tsparticles";
 import ExchangeForm from "./components/ExchangeForm";
 import { setupAvaxClient } from "./utils/avalanche";
 import { setupTzsClient } from "./utils/tezos";
 import ConnectWallets from "./components/ConnectWallets";
 import config from "./config.json";
 import usdcABI from "./assets/abi/avax_usdc.json";
+import particlesOptions from "./particles.json";
+import { Container, Typography } from "@mui/material";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 let EXCHANGE_PAIRS = {
   0: {
@@ -64,25 +71,33 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-      <ExchangeForm
-        pairID={pairID}
-        setPairID={setPairID}
-        exchangePairs={EXCHANGE_PAIRS}
-        balances={balances}
-        connectWallets={
-          <ConnectWallets
-            pairID={pairID}
-            exchangePairs={EXCHANGE_PAIRS}
-            clients={clientsRef.current}
-            setupAvax={setupAvaxWallet}
-            setupTzs={setupTzsWallet}
-            setBalances={setBalances}
-          />
-        }
-      ></ExchangeForm>
+    <div>
+      <MemoParticles />
+      <div className="App">
+        <ExchangeForm
+          pairID={pairID}
+          setPairID={setPairID}
+          exchangePairs={EXCHANGE_PAIRS}
+          balances={balances}
+          connectWallets={
+            <ConnectWallets
+              pairID={pairID}
+              exchangePairs={EXCHANGE_PAIRS}
+              clients={clientsRef.current}
+              setupAvax={setupAvaxWallet}
+              setupTzs={setupTzsWallet}
+              setBalances={setBalances}
+            />
+          }
+        ></ExchangeForm>
+        <Typography sx={{ opacity: 0.6, mt: 2 }}>© 2022 Sputnik</Typography>
+      </div>
     </div>
   );
 };
+
+const MemoParticles = React.memo(() => (
+  <Particles id="tsparticles" options={particlesOptions} />
+));
 
 export default App;

@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import {
+  Divider,
   IconButton,
   Stack,
   ToggleButton,
@@ -29,18 +30,30 @@ const ExchangeForm = ({
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="md">
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 8,
+          width: "60%",
+          margin: "auto",
+          marginTop: 6,
+          py: 3,
+          px: 5,
           display: "flex",
           flexDirection: "column",
+          backgroundColor: "#ffffff",
+          borderRadius: "2%",
+          boxShadow: "0px 3px 7px 2px rgba(34, 60, 80, 0.2)",
         }}
       >
-        <Typography component="h1" variant="h5">
-          Swap Tokens
+        <Typography
+          sx={{ fontFamily: "Roboto", fontWeight: "100" }}
+          component="h1"
+          variant="h5"
+        >
+          SWAP TOKENS
         </Typography>
+        <Divider sx={{ my: 2 }} light />
         <Box component="form" noValidate sx={{ mt: 2 }}>
           <Stack
             direction="row"
@@ -63,8 +76,11 @@ const ExchangeForm = ({
                 );
               })}
             </ToggleButtonGroup>
-            <Typography align="right" sx={{ opacity: 0.5 }}>
-              balance: {fromAvalanche ? balances.avax : balances.tzs}
+            <Typography
+              align="right"
+              sx={{ opacity: 0.7, fontFamily: "Roboto", fontWeight: "300" }}
+            >
+              Balance: {fromAvalanche ? balances.avax : balances.tzs}
             </Typography>
           </Stack>
           <TextField
@@ -115,8 +131,11 @@ const ExchangeForm = ({
                 );
               })}
             </ToggleButtonGroup>
-            <Typography align="right" sx={{ opacity: 0.5 }}>
-              balance: {!fromAvalanche ? balances.avax : balances.tzs}
+            <Typography
+              align="right"
+              sx={{ opacity: 0.7, fontFamily: "Roboto", fontWeight: "300" }}
+            >
+              Balance: {!fromAvalanche ? balances.avax : balances.tzs}
             </Typography>
           </Stack>
           <TextField
@@ -140,6 +159,50 @@ const ExchangeForm = ({
           <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Swap
           </Button>
+          <Box
+            sx={{
+              p: 2,
+              backgroundColor: "rgba(204, 204, 204, 0.2)",
+              borderRadius: "7px",
+            }}
+          >
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography
+                sx={{ fontFamily: "Roboto", fontWeight: "300" }}
+                variant="subtitle1"
+              >
+                Swap fee
+              </Typography>
+              <Typography
+                sx={{ fontFamily: "Roboto", fontWeight: "300" }}
+                variant="subtitle1"
+              >
+                0.00
+              </Typography>
+            </Stack>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography
+                sx={{ fontFamily: "Roboto", fontWeight: "300" }}
+                variant="subtitle1"
+              >
+                Gas fee
+              </Typography>
+              <Typography
+                sx={{ fontFamily: "Roboto", fontWeight: "300" }}
+                variant="subtitle1"
+              >
+                0.00
+              </Typography>
+            </Stack>
+          </Box>
         </Box>
       </Box>
     </Container>
