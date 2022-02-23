@@ -63,7 +63,7 @@ const ExchangeForm = ({
                 );
               })}
             </ToggleButtonGroup>
-            <Typography align="right">
+            <Typography align="right" sx={{ opacity: 0.5 }}>
               balance: {fromAvalanche ? balances.avax : balances.tzs}
             </Typography>
           </Stack>
@@ -115,7 +115,7 @@ const ExchangeForm = ({
                 );
               })}
             </ToggleButtonGroup>
-            <Typography align="right">
+            <Typography align="right" sx={{ opacity: 0.5 }}>
               balance: {!fromAvalanche ? balances.avax : balances.tzs}
             </Typography>
           </Stack>
