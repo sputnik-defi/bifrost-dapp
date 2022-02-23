@@ -4,6 +4,32 @@ import ExchangeForm from "./components/ExchangeForm";
 import { setupAvaxClient } from "./utils/avalanche";
 import { setupTzsClient } from "./utils/tezos";
 import ConnectWallets from "./components/ConnectWallets";
+import config from "./config.json";
+import usdcABI from "./assets/abi/avax_usdc.json";
+
+let EXCHANGE_PAIRS = {
+  0: {
+    avalanche: {
+      name: "AVAX",
+      contract: "", // empty contract value means that token is native
+    },
+    tezos: {
+      name: "WAVAX",
+      contract: config.tezos.wavax,
+    },
+  },
+  1: {
+    avalanche: {
+      name: "USDC",
+      contract: config.avalanche.usdc,
+      abi: usdcABI,
+    },
+    tezos: {
+      name: "WUSDC",
+      contract: config.tezos.wusdc,
+    },
+  },
+};
 
 const App = () => {
   const [clients, setClients] = useState({
@@ -14,6 +40,7 @@ const App = () => {
     avax: 0.0,
     tzs: 0.0,
   });
+  const [pairID, setPairID] = useState("0");
 
   const clientsRef = useRef();
   clientsRef.current = clients;
@@ -36,32 +63,17 @@ const App = () => {
     }
   };
 
-  let exchangePairs = {
-    0: {
-      avalanche: {
-        name: "AVAX",
-      },
-      tezos: {
-        name: "WAVAX",
-      },
-    },
-    1: {
-      avalanche: {
-        name: "USDC",
-      },
-      tezos: {
-        name: "WUSDC",
-      },
-    },
-  };
-
   return (
     <div className="App">
       <ExchangeForm
-        exchangePairs={exchangePairs}
+        pairID={pairID}
+        setPairID={setPairID}
+        exchangePairs={EXCHANGE_PAIRS}
         balances={balances}
         connectWallets={
           <ConnectWallets
+            pairID={pairID}
+            exchangePairs={EXCHANGE_PAIRS}
             clients={clientsRef.current}
             setupAvax={setupAvaxWallet}
             setupTzs={setupTzsWallet}

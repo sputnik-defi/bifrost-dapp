@@ -15,8 +15,13 @@ import ArrowsIcon from "../assets/images/arrows.svg";
 import AvaxLogo from "../assets/images/avax_logo.svg";
 import TzsLogo from "../assets/images/tzs_logo.svg";
 
-const ExchangeForm = ({ exchangePairs, balances, connectWallets }) => {
-  const [pairID, setPairID] = useState("0");
+const ExchangeForm = ({
+  pairID,
+  setPairID,
+  exchangePairs,
+  balances,
+  connectWallets,
+}) => {
   const [fromAvalanche, setFromAvalanche] = useState(true);
 
   const handlePairID = (e, id) => {

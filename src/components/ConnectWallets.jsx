@@ -5,11 +5,16 @@ import { Grid, Icon } from "@mui/material";
 import AvaxLogo from "../assets/images/avax_logo.svg";
 import TzsLogo from "../assets/images/tzs_logo.svg";
 
-const ConnectWallets = ({ clients, setupAvax, setupTzs, setBalances }) => {
+const ConnectWallets = ({
+  pairID,
+  exchangePairs,
+  clients,
+  setupAvax,
+  setupTzs,
+  setBalances,
+}) => {
   const [avaxAccount, setAvaxAccount] = useState("");
   const [tzsAccount, setTzsAccount] = useState("");
-  const [avaxBalance, setAvaxBalance] = useState(0.0);
-  const [tzsBalance, setTzsBalance] = useState(0.0);
 
   const setupAvaxAccount = async () => {
     try {
@@ -28,16 +33,20 @@ const ConnectWallets = ({ clients, setupAvax, setupTzs, setBalances }) => {
     let tzs = 0.0;
 
     if (clients.avalanche) {
-      avax = await clients.avalanche.balance();
-      console.log(avax);
+      if (exchangePairs[pairID].avalanche.contract === "") {
+        avax = await clients.avalanche.balance();
+      } else {
+        avax = await clients.avalanche.tokenBalance(
+          exchangePairs[pairID].avalanche.abi,
+          exchangePairs[pairID].avalanche.contract
+        );
+      }
     }
 
     setBalances({
       avax: bigIntToFloat(avax, 18, 6),
       tzs: bigIntToFloat(tzs, 18, 6),
     });
-
-    setAvaxBalance(bigIntToFloat(avax, 18, 6));
   };
 
   useEffect(() => {
@@ -51,7 +60,7 @@ const ConnectWallets = ({ clients, setupAvax, setupTzs, setBalances }) => {
 
   useEffect(() => {
     updateBalances();
-  }, [avaxAccount, tzsAccount]);
+  }, [pairID, avaxAccount, tzsAccount]);
 
   return (
     <Grid container spacing={2} sx={{ mt: 1 }}>

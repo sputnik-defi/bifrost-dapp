@@ -8,7 +8,8 @@ export class Avalanche {
     return await this.web3.eth.getBalance(this.address);
   }
 
-  async tokenBalance(tokenContract) {
-    return await tokenContract.methods.balanceOf(this.address).call();
+  async tokenBalance(abi, address) {
+    let contract = new this.web3.eth.Contract(abi, address);
+    return await contract.methods.balanceOf(this.address).call();
   }
 }
