@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { BigNumber } from "bignumber.js";
-import { Grid, Icon } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import AvaxLogo from "../assets/images/avax_logo.svg";
 import TzsLogo from "../assets/images/tzs_logo.svg";
 
@@ -63,42 +63,41 @@ const ConnectWallets = ({
   }, [pairID, avaxAccount, tzsAccount]);
 
   return (
-    <Grid container spacing={2} sx={{ mt: 1 }}>
-      <Grid item xs={6}>
-        <Button
-          fullWidth
-          variant="outlined"
-          startIcon={
-            <Icon>
-              <img src={AvaxLogo} width={20} />
-            </Icon>
-          }
-          onClick={!avaxAccount ? setupAvaxAccount : null}
-        >
-          {(!avaxAccount || avaxAccount.length == 0) && "Connect"}
-          {avaxAccount &&
-            avaxAccount.length > 0 &&
-            shortAccountString(5, 5, avaxAccount)}
-        </Button>
+    <Container disableGutters sx={{ my: 1 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <Button
+            fullWidth
+            variant="outlined"
+            startIcon={<img src={AvaxLogo} width={20} />}
+            onClick={!avaxAccount ? setupAvaxAccount : null}
+          >
+            {(!avaxAccount || avaxAccount.length == 0) && "Connect"}
+            {avaxAccount &&
+              avaxAccount.length > 0 &&
+              shortAccountString(5, 5, avaxAccount)}
+          </Button>
+        </Grid>
+        <Grid item xs={6}>
+          <Button
+            fullWidth
+            variant="outlined"
+            startIcon={<img src={TzsLogo} width={15} />}
+            onClick={!tzsAccount ? setupTzsAccount : null}
+          >
+            {(!tzsAccount || tzsAccount.length == 0) && "Connect"}
+            {tzsAccount &&
+              tzsAccount.length > 0 &&
+              shortAccountString(5, 5, tzsAccount)}
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item xs={6}>
-        <Button
-          fullWidth
-          variant="outlined"
-          startIcon={
-            <Icon>
-              <img src={TzsLogo} width={15} />
-            </Icon>
-          }
-          onClick={!tzsAccount ? setupTzsAccount : null}
-        >
-          {(!tzsAccount || tzsAccount.length == 0) && "Connect"}
-          {tzsAccount &&
-            tzsAccount.length > 0 &&
-            shortAccountString(5, 5, tzsAccount)}
-        </Button>
-      </Grid>
-    </Grid>
+      {(!tzsAccount || !tzsAccount) && (
+        <Typography align="center" sx={{ mt: 0.5, color: "#d43b3b" }}>
+          Connect wallets
+        </Typography>
+      )}
+    </Container>
   );
 };
 

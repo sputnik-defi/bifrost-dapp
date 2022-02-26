@@ -22,6 +22,7 @@ const ExchangeForm = ({
   exchangePairs,
   balances,
   connectWallets,
+  clients,
 }) => {
   const [fromAvalanche, setFromAvalanche] = useState(true);
 
@@ -156,7 +157,12 @@ const ExchangeForm = ({
             }}
           />
           {connectWallets}
-          <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button
+            disabled={!(clients.avalanche && clients.tezos)}
+            fullWidth
+            variant="contained"
+            sx={{ mt: 1, mb: 2 }}
+          >
             Swap
           </Button>
           <Box

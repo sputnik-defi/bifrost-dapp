@@ -79,6 +79,7 @@ const App = () => {
           setPairID={setPairID}
           exchangePairs={EXCHANGE_PAIRS}
           balances={balances}
+          clients={clientsRef.current}
           connectWallets={
             <ConnectWallets
               pairID={pairID}
