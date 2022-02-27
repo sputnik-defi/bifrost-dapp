@@ -163,7 +163,8 @@ const ExchangeForm = ({
             variant="contained"
             sx={{ mt: 1, mb: 2 }}
           >
-            Swap
+            {!(clients.avalanche && clients.tezos) && "connect wallets"}
+            {clients.avalanche && clients.tezos && "swap"}
           </Button>
           <Box
             sx={{

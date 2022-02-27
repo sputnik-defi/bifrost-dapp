@@ -8,10 +8,10 @@ import TzsLogo from "../assets/images/tzs_logo.svg";
 const ConnectWallets = ({
   pairID,
   exchangePairs,
-  clients,
   setupAvax,
   setupTzs,
   setBalances,
+  clients,
 }) => {
   const [avaxAccount, setAvaxAccount] = useState("");
   const [tzsAccount, setTzsAccount] = useState("");
@@ -92,11 +92,6 @@ const ConnectWallets = ({
           </Button>
         </Grid>
       </Grid>
-      {(!tzsAccount || !tzsAccount) && (
-        <Typography align="center" sx={{ mt: 0.5, color: "#d43b3b" }}>
-          Connect wallets
-        </Typography>
-      )}
     </Container>
   );
 };
