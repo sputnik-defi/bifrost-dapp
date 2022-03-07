@@ -23,11 +23,26 @@ const ExchangeForm = ({
   balances,
   connectWallets,
   clients,
+  swapAvalanche,
+  swapTezos,
 }) => {
   const [fromAvalanche, setFromAvalanche] = useState(true);
+  const [amount, setAmount] = useState(0.0);
 
   const handlePairID = (e, id) => {
     setPairID(id[id.length - 1]);
+  };
+
+  const handleAmountChange = (e) => {
+    setAmount(e.target.value);
+  };
+
+  const swap = async () => {
+    if (fromAvalanche) {
+      await swapAvalanche(amount);
+    } else {
+      await swapTezos(amount);
+    }
   };
 
   return (
@@ -90,6 +105,7 @@ const ExchangeForm = ({
             type="number"
             placeholder="0.00"
             autoFocus
+            onInput={handleAmountChange}
             InputProps={{
               inputProps: {
                 step: "0.01",
@@ -162,6 +178,7 @@ const ExchangeForm = ({
             fullWidth
             variant="contained"
             sx={{ mt: 1, mb: 2 }}
+            onClick={swap}
           >
             {!(clients.avalanche && clients.tezos) && "connect wallets"}
             {clients.avalanche && clients.tezos && "swap"}

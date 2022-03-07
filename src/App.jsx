@@ -8,7 +8,7 @@ import ConnectWallets from "./components/ConnectWallets";
 import config from "./config.json";
 import usdcABI from "./assets/abi/avax_usdc.json";
 import particlesOptions from "./particles.json";
-import { Container, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -70,6 +70,36 @@ const App = () => {
     }
   };
 
+  const swapAvalanche = async (amount) => {
+    let destination = String(clients.tezos.address);
+
+    try {
+      switch (pairID) {
+        case "0":
+          await clients.avalanche.lockAVAX(amount, destination);
+        case "1":
+          await clients.avalanche.lockUSDC(amount, destination);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const swapTezos = async (amount) => {
+    let destination = String(clients.avalanche.address);
+
+    try {
+      switch (pairID) {
+        case "0":
+          await clients.tezos.burnWAVAX(amount, destination);
+        case "1":
+          await clients.tezos.burnWUSDC(amount, destination);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <MemoParticles />
@@ -80,6 +110,8 @@ const App = () => {
           exchangePairs={EXCHANGE_PAIRS}
           balances={balances}
           clients={clientsRef.current}
+          swapAvalanche={swapAvalanche}
+          swapTezos={swapTezos}
           connectWallets={
             <ConnectWallets
               pairID={pairID}

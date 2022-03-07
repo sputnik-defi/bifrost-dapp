@@ -1,6 +1,7 @@
 import Web3 from "web3";
 import { Avalanche } from "../lib/avalanche";
 import config from "../config.json";
+import LockManager from "../assets/abi/LockManager.json";
 
 const AVALANCHE_MAINNET_PARAMS = {
   chainId: "0xA86A",
@@ -29,7 +30,12 @@ const AVALANCHE_TESTNET_PARAMS = {
 export const setupAvaxClient = async () => {
   const { web3, account: ethAccount } = await connectEthWallet();
 
-  return new Avalanche(web3, ethAccount);
+  return new Avalanche(
+    web3,
+    ethAccount,
+    LockManager,
+    config.avalanche.lock_manager
+  );
 };
 
 export const connectEthWallet = async () => {
