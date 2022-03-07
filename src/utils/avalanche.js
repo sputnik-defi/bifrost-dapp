@@ -34,16 +34,14 @@ export const setupAvaxClient = async () => {
     web3,
     ethAccount,
     LockManager,
-    config.avalanche.lock_manager
+    config.network === "mainnet"
+      ? config.networks.mainnet.avalanche.lock_manager
+      : config.networks.testnet.avalanche.lock_manager
   );
 };
 
 export const connectEthWallet = async () => {
   if (!window.ethereum) {
-    alert(
-      "Please install an Ethereum-compatible browser or extension like MetaMask to use this dApp!"
-    );
-
     return undefined;
   }
 

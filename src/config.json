@@ -1,11 +1,25 @@
 {
   "network": "testnet",
-  "avalanche": {
-    "lock_manager": "",
-    "usdc": "0x5425890298aed601595a70AB815c96711a31Bc65"
-  },
-  "tezos": {
-    "wavax": "",
-    "wusdc": ""
+  "networks": {
+    "testnet": {
+      "avalanche": {
+        "lock_manager": "",
+        "usdc": "0x5425890298aed601595a70AB815c96711a31Bc65"
+      },
+      "tezos": {
+        "wavax": "",
+        "wusdc": ""
+      }
+    },
+    "mainnet": {
+      "avalanche": {
+        "lock_manager": "",
+        "usdc": "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E"
+      },
+      "tezos": {
+        "wavax": "",
+        "wusdc": ""
+      }
+    }
   }
 }

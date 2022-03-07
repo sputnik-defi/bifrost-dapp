@@ -14,6 +14,11 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
+let NETWORK_CONFIG =
+  config.network === "mainnet"
+    ? config.networks.mainnet
+    : config.networks.testnet;
+
 let EXCHANGE_PAIRS = {
   0: {
     avalanche: {
@@ -22,18 +27,18 @@ let EXCHANGE_PAIRS = {
     },
     tezos: {
       name: "WAVAX",
-      contract: config.tezos.wavax,
+      contract: NETWORK_CONFIG.tezos.wavax,
     },
   },
   1: {
     avalanche: {
       name: "USDC",
-      contract: config.avalanche.usdc,
+      contract: NETWORK_CONFIG.avalanche.usdc,
       abi: usdcABI,
     },
     tezos: {
       name: "WUSDC",
-      contract: config.tezos.wusdc,
+      contract: NETWORK_CONFIG.tezos.wusdc,
     },
   },
 };
