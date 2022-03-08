@@ -15,11 +15,11 @@ export class Tezos {
 
   async burnWAVAX(amount, destination) {
     const contract = await this.tzs.wallet.at(this.wavaxAddress);
-    await contract.methods.burn(amount, destination);
+    await contract.methods.burn(amount, destination).send();
   }
 
   async burnWUSDC(amount, destination) {
     const contract = await this.tzs.wallet.at(this.wusdcAddress);
-    await contract.methods.burn(amount, destination);
+    await contract.methods.burn(amount, destination).send();
   }
 }
