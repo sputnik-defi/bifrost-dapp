@@ -29,22 +29,28 @@ const ConnectWallets = ({
   };
 
   const updateBalances = async () => {
-    let avax = 0.0;
+    let ava = 0.0;
     let tzs = 0.0;
 
     if (clients.avalanche) {
       if (exchangePairs[pairID].avalanche.contract === "") {
-        avax = await clients.avalanche.balance();
+        ava = await clients.avalanche.balance();
       } else {
-        avax = await clients.avalanche.tokenBalance(
+        ava = await clients.avalanche.tokenBalance(
           exchangePairs[pairID].avalanche.abi,
           exchangePairs[pairID].avalanche.contract
         );
       }
     }
 
+    if (clients.tezos) {
+      tzs = await clients.avalanche.tokenBalance(
+        exchangePairs[pairID].tezos.contract
+      );
+    }
+
     setBalances({
-      avax: bigIntToFloat(avax, 18, 6),
+      ava: bigIntToFloat(ava, 18, 6),
       tzs: bigIntToFloat(tzs, 18, 6),
     });
   };

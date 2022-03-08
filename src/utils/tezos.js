@@ -25,5 +25,10 @@ export const setupTzsClient = async () => {
 
   let address = wallet.pkh || (await wallet.getPKH());
 
-  return new Tezos(tzs, address);
+  let network =
+    config.network === "mainnet"
+      ? config.networks.mainnet
+      : config.networks.testnet;
+
+  return new Tezos(tzs, address, network.tezos.wavax, network.tezos.wusdc);
 };
