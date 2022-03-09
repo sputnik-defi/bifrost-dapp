@@ -20,8 +20,7 @@ export class Avalanche {
 
   async lockAVAX(amount, destination) {
     return await this.lockerContract.methods.lockAVAX(destination).send({
-      from: this.web3.eth.accounts[0],
-      value: this.web3.utils.toWei(amount), // 1 AVAX == 10^18
+      value: this.web3.utils.toWei(amount),
     });
   }
 
@@ -29,5 +28,25 @@ export class Avalanche {
     return await this.lockerContract.methods
       .lockUSDC(amount, destination)
       .send();
+  }
+
+  async estimateLockAVAX(amount, destination) {
+    if (!this.lockerContract) {
+      return 0.0;
+    }
+
+    return await this.lockerContract.methods
+      .lockAVAX(destination)
+      .estimateGas({ value: this.web3.utils.toWei(amount) });
+  }
+
+  async estimateLockUSDC(amount, destination) {
+    if (!this.lockerContract) {
+      return 0.0;
+    }
+
+    return await this.lockerContract.methods
+      .lockUSDC(amount, destination)
+      .estimateGas();
   }
 }

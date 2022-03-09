@@ -105,6 +105,36 @@ const App = () => {
     }
   };
 
+  const estimateAvalanche = async (amount) => {
+    let destination = String(clients.tezos.address);
+
+    try {
+      switch (pairID) {
+        case "0":
+          return await clients.avalanche.estimateLockAVAX(amount, destination);
+        case "1":
+          return await clients.avalanche.estimateLockUSDC(amount, destination);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const estimateTezos = async (amount) => {
+    let destination = String(clients.avalanche.address);
+
+    try {
+      switch (pairID) {
+        case "0":
+          return await clients.tezos.estimateBurnWAVAX(amount, destination);
+        case "1":
+          return await clients.tezos.estimateBurnWUSDC(amount, destination);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <MemoParticles />
@@ -117,6 +147,8 @@ const App = () => {
           clients={clientsRef.current}
           swapAvalanche={swapAvalanche}
           swapTezos={swapTezos}
+          estimateAvalanche={estimateAvalanche}
+          estimateTezos={estimateTezos}
           connectWallets={
             <ConnectWallets
               pairID={pairID}
@@ -128,7 +160,9 @@ const App = () => {
             />
           }
         ></ExchangeForm>
-        <Typography sx={{ opacity: 0.6, mt: 2 }}>© 2022 Sputnik</Typography>
+        <Typography sx={{ opacity: 0.6, mt: 2 }}>
+          &#169; {new Date().getFullYear()} Sputnik
+        </Typography>
       </div>
     </div>
   );

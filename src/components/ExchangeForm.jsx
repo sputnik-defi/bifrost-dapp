@@ -25,9 +25,28 @@ const ExchangeForm = ({
   clients,
   swapAvalanche,
   swapTezos,
+  estimateAvalanche,
+  estimateTezos,
 }) => {
   const [fromAvalanche, setFromAvalanche] = useState(true);
   const [amount, setAmount] = useState(0.0);
+  const [receivedAmount, setReceivedAmount] = useState(0.0);
+  const [swapFee, setSwapFee] = useState(0.0);
+  const [gasFee, setGasFee] = useState(0.0);
+
+  useEffect(() => {
+    let fee = ((amount / 100) * 0.3).toFixed(6);
+    setSwapFee(fee);
+  }, [amount]);
+
+  useEffect(() => {
+    estimate();
+  }, [pairID, fromAvalanche, amount]);
+
+  useEffect(() => {
+    let received = amount - swapFee - gasFee;
+    setReceivedAmount(received);
+  }, [swapFee, gasFee]);
 
   const handlePairID = (e, id) => {
     setPairID(id[id.length - 1]);
@@ -43,6 +62,18 @@ const ExchangeForm = ({
     } else {
       await swapTezos(amount);
     }
+  };
+
+  const estimate = async () => {
+    let gas = 0.0;
+
+    if (fromAvalanche && clients.avalanche) {
+      gas = await estimateAvalanche(amount);
+    } else if (clients.tezos) {
+      gas = await estimateTezos(amount);
+    }
+
+    setGasFee(gas.toFixed(6));
   };
 
   return (
@@ -84,7 +115,7 @@ const ExchangeForm = ({
             >
               {Object.keys(exchangePairs).map((key) => {
                 return (
-                  <ToggleButton value={key}>
+                  <ToggleButton key={key} value={key}>
                     {fromAvalanche
                       ? exchangePairs[key].avalanche.name
                       : exchangePairs[key].tezos.name}
@@ -96,7 +127,7 @@ const ExchangeForm = ({
               align="right"
               sx={{ opacity: 0.7, fontFamily: "Roboto", fontWeight: "300" }}
             >
-              Balance: {fromAvalanche ? balances.avax : balances.tzs}
+              Balance: {fromAvalanche ? balances.ava : balances.tzs}
             </Typography>
           </Stack>
           <TextField
@@ -140,7 +171,7 @@ const ExchangeForm = ({
             >
               {Object.keys(exchangePairs).map((key) => {
                 return (
-                  <ToggleButton value={key}>
+                  <ToggleButton key={key} value={key}>
                     {!fromAvalanche
                       ? exchangePairs[key].avalanche.name
                       : exchangePairs[key].tezos.name}
@@ -152,7 +183,7 @@ const ExchangeForm = ({
               align="right"
               sx={{ opacity: 0.7, fontFamily: "Roboto", fontWeight: "300" }}
             >
-              Balance: {!fromAvalanche ? balances.avax : balances.tzs}
+              Balance: {!fromAvalanche ? balances.ava : balances.tzs}
             </Typography>
           </Stack>
           <TextField
@@ -160,10 +191,12 @@ const ExchangeForm = ({
             fullWidth
             type="number"
             placeholder="0.00"
+            value={receivedAmount}
             disabled={true}
             InputProps={{
               inputProps: {
                 style: { textAlign: "right" },
+                color: "#000000",
               },
               startAdornment: !fromAvalanche ? (
                 <img src={AvaxLogo} width={25} />
@@ -205,7 +238,7 @@ const ExchangeForm = ({
                 sx={{ fontFamily: "Roboto", fontWeight: "300" }}
                 variant="subtitle1"
               >
-                0.00
+                {swapFee}
               </Typography>
             </Stack>
             <Stack
@@ -223,7 +256,7 @@ const ExchangeForm = ({
                 sx={{ fontFamily: "Roboto", fontWeight: "300" }}
                 variant="subtitle1"
               >
-                0.00
+                {gasFee}
               </Typography>
             </Stack>
           </Box>

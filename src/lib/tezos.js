@@ -22,4 +22,14 @@ export class Tezos {
     const contract = await this.tzs.wallet.at(this.wusdcAddress);
     await contract.methods.burn(amount, destination).send();
   }
+
+  async estimateBurnWAVAX(amount, destination) {
+    // TODO
+    return 0.0;
+  }
+
+  async estimateBurnWUSDC(amount, destination) {
+    // TODO
+    return 0.0;
+  }
 }
