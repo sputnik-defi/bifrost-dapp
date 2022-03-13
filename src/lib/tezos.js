@@ -8,9 +8,9 @@ export class Tezos {
 
   async tokenBalance(tokenContract) {
     const contract = await this.tzs.wallet.at(tokenContract);
-    const account = await contract.methods.getAccount(this.address).send();
+    const balance = await contract.views.getBalance(this.address).read();
 
-    return account.balance;
+    return balance;
   }
 
   async burnWAVAX(amount, destination) {

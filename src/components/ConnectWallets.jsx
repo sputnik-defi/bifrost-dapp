@@ -44,7 +44,7 @@ const ConnectWallets = ({
     }
 
     if (clients.tezos) {
-      tzs = await clients.avalanche.tokenBalance(
+      tzs = await clients.tezos.tokenBalance(
         exchangePairs[pairID].tezos.contract
       );
     }
