@@ -24,12 +24,24 @@ export class Tezos {
   }
 
   async estimateBurnWAVAX(amount, destination) {
-    // TODO
-    return 0.0;
+    const contract = await this.tzs.wallet.at(this.wavaxAddress);
+    const op = await contract.methods
+      .burn(amount, destination)
+      .toTransferParams({});
+
+    const est = this.tzs.estimate.transfer(op);
+
+    return est.totalCost;
   }
 
   async estimateBurnWUSDC(amount, destination) {
-    // TODO
-    return 0.0;
+    const contract = await this.tzs.wallet.at(this.wusdcAddress);
+    const op = await contract.methods
+      .burn(amount, destination)
+      .toTransferParams({});
+
+    const est = this.tzs.estimate.transfer(op);
+
+    return est.totalCost;
   }
 }
