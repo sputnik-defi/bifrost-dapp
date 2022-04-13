@@ -31,13 +31,13 @@ export class Avalanche {
   }
 
   async estimateLockAVAX(amount, destination) {
-    if (!this.lockerContract) {
+    if (!this.lockerContract || amount <= 0) {
       return 0.0;
     }
 
     return await this.lockerContract.methods
       .lockAVAX(destination)
-      .estimateGas({ value: this.web3.utils.toWei(amount) });
+      .estimateGas({ value: this.web3.utils.toWei(amount.toString()) });
   }
 
   async estimateLockUSDC(amount, destination) {
