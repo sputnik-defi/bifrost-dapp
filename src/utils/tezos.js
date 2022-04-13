@@ -4,8 +4,6 @@ import config from "../config.json";
 import { Tezos } from "../lib/tezos";
 
 export const setupTzsClient = async () => {
-  const tzs = new TezosToolkit("https://testnet-tezos.giganode.io");
-
   try {
     const available = await TempleWallet.isAvailable();
     if (!available) {
@@ -21,6 +19,12 @@ export const setupTzsClient = async () => {
     config.network === "mainnet" ? "mainnet" : "hangzhounet"
   );
 
+  let url =
+    config.network === "mainnet"
+      ? "https://rpc.tzbeta.net"
+      : "https://rpc.hangzhou.tzstats.com";
+
+  const tzs = new TezosToolkit(url);
   tzs.setWalletProvider(wallet);
 
   let address = wallet.pkh || (await wallet.getPKH());
