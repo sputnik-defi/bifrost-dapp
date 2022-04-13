@@ -65,7 +65,7 @@ export const connectEthWallet = async () => {
 
   const web3 = new Web3(window.ethereum);
 
-  await window.ethereum.enable();
+  await window.ethereum.request({ method: "eth_requestAccounts" });
   const account = await web3.eth.getAccounts();
 
   return { web3, account: account[0] };
