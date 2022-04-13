@@ -3,12 +3,12 @@
   "networks": {
     "testnet": {
       "avalanche": {
-        "lock_manager": "",
+        "lock_manager": "0x3543Ee846AD9205A4DAD98282158C73dA56c3e31",
         "usdc": "0x5425890298aed601595a70AB815c96711a31Bc65"
       },
       "tezos": {
-        "wavax": "",
-        "wusdc": ""
+        "wavax": "KT1SJucYT9zWJpdnY5X2o3rycvz6Mwrf9zgw",
+        "wusdc": "KT18tus57JFDbxywZ8Yfve2egQxjGFR4YTRQ"
       }
     },
     "mainnet": {
