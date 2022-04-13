@@ -2,6 +2,7 @@ import { TezosToolkit } from "@taquito/taquito";
 import { TempleWallet } from "@temple-wallet/dapp";
 import config from "../config.json";
 import { Tezos } from "../lib/tezos";
+import { ReadOnlySigner } from "./signer";
 
 export const setupTzsClient = async () => {
   try {
@@ -15,9 +16,15 @@ export const setupTzsClient = async () => {
 
   const wallet = new TempleWallet("AVAX Bridge");
 
-  await wallet.connect(
-    config.network === "mainnet" ? "mainnet" : "hangzhounet"
-  );
+  if (!wallet.connected) {
+    await wallet.connect(
+      config.network === "mainnet" ? "mainnet" : "hangzhounet",
+      { forcePermission: true }
+    );
+  }
+
+  let address = wallet.pkh || (await wallet.getPKH());
+  const { pkh, publicKey } = wallet.permission;
 
   let url =
     config.network === "mainnet"
@@ -26,8 +33,7 @@ export const setupTzsClient = async () => {
 
   const tzs = new TezosToolkit(url);
   tzs.setWalletProvider(wallet);
-
-  let address = wallet.pkh || (await wallet.getPKH());
+  tzs.setSignerProvider(new ReadOnlySigner(pkh, publicKey));
 
   let network =
     config.network === "mainnet"
