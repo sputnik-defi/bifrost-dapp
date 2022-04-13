@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/bifrost-dapp/static/css/main.423e0d98.chunk.css",
-    "main.js": "/bifrost-dapp/static/js/main.0f9da9d7.chunk.js",
-    "main.js.map": "/bifrost-dapp/static/js/main.0f9da9d7.chunk.js.map",
+    "main.js": "/bifrost-dapp/static/js/main.6c375510.chunk.js",
+    "main.js.map": "/bifrost-dapp/static/js/main.6c375510.chunk.js.map",
     "runtime-main.js": "/bifrost-dapp/static/js/runtime-main.f2ed1e39.js",
     "runtime-main.js.map": "/bifrost-dapp/static/js/runtime-main.f2ed1e39.js.map",
     "static/css/2.4fc6529f.chunk.css": "/bifrost-dapp/static/css/2.4fc6529f.chunk.css",
-    "static/js/2.2f4f635b.chunk.js": "/bifrost-dapp/static/js/2.2f4f635b.chunk.js",
-    "static/js/2.2f4f635b.chunk.js.map": "/bifrost-dapp/static/js/2.2f4f635b.chunk.js.map",
+    "static/js/2.af40a6d8.chunk.js": "/bifrost-dapp/static/js/2.af40a6d8.chunk.js",
+    "static/js/2.af40a6d8.chunk.js.map": "/bifrost-dapp/static/js/2.af40a6d8.chunk.js.map",
     "static/js/3.24ccce8b.chunk.js": "/bifrost-dapp/static/js/3.24ccce8b.chunk.js",
     "static/js/3.24ccce8b.chunk.js.map": "/bifrost-dapp/static/js/3.24ccce8b.chunk.js.map",
     "static/js/4.80f6e186.chunk.js": "/bifrost-dapp/static/js/4.80f6e186.chunk.js",
@@ -15,7 +15,7 @@
     "index.html": "/bifrost-dapp/index.html",
     "static/css/2.4fc6529f.chunk.css.map": "/bifrost-dapp/static/css/2.4fc6529f.chunk.css.map",
     "static/css/main.423e0d98.chunk.css.map": "/bifrost-dapp/static/css/main.423e0d98.chunk.css.map",
-    "static/js/2.2f4f635b.chunk.js.LICENSE.txt": "/bifrost-dapp/static/js/2.2f4f635b.chunk.js.LICENSE.txt",
+    "static/js/2.af40a6d8.chunk.js.LICENSE.txt": "/bifrost-dapp/static/js/2.af40a6d8.chunk.js.LICENSE.txt",
     "static/media/arrows.5dbfc9e6.svg": "/bifrost-dapp/static/media/arrows.5dbfc9e6.svg",
     "static/media/avax_logo.a3f3731d.svg": "/bifrost-dapp/static/media/avax_logo.a3f3731d.svg",
     "static/media/300.css": "/bifrost-dapp/static/media/roboto-vietnamese-300-normal.af9afdc1.woff2",
@@ -27,8 +27,8 @@
   "entrypoints": [
     "static/js/runtime-main.f2ed1e39.js",
     "static/css/2.4fc6529f.chunk.css",
-    "static/js/2.2f4f635b.chunk.js",
+    "static/js/2.af40a6d8.chunk.js",
     "static/css/main.423e0d98.chunk.css",
-    "static/js/main.0f9da9d7.chunk.js"
+    "static/js/main.6c375510.chunk.js"
   ]
 }
