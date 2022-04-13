@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import { BigNumber } from "bignumber.js";
 import { Container, Grid, Typography } from "@mui/material";
 import AvaxLogo from "../assets/images/avax_logo.svg";
 import TzsLogo from "../assets/images/tzs_logo.svg";
+import { bigIntToFloat, shortAccountString } from "../utils/utils";
 
 const ConnectWallets = ({
   pairID,
@@ -100,16 +100,6 @@ const ConnectWallets = ({
       </Grid>
     </Container>
   );
-};
-
-const shortAccountString = (first, last, str) => {
-  return str.substring(0, first) + "..." + str.substring(str.length - last);
-};
-
-const bigIntToFloat = (number, decimals, precision) => {
-  return new BigNumber(number)
-    .div(new BigNumber(10).pow(decimals))
-    .toFixed(precision);
 };
 
 export default ConnectWallets;

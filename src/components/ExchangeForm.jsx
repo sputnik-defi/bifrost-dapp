@@ -15,6 +15,7 @@ import {
 import ArrowsIcon from "../assets/images/arrows.svg";
 import AvaxLogo from "../assets/images/avax_logo.svg";
 import TzsLogo from "../assets/images/tzs_logo.svg";
+import { bigIntToFloat, shortAccountString } from "../utils/utils";
 
 const ExchangeForm = ({
   pairID,
@@ -35,7 +36,7 @@ const ExchangeForm = ({
   const [gasFee, setGasFee] = useState(0.0);
 
   useEffect(() => {
-    let fee = ((amount / 100) * 0.3).toFixed(6);
+    let fee = ((amount / 100) * 0.3).toFixed(18);
     setSwapFee(fee);
   }, [amount]);
 
@@ -73,7 +74,7 @@ const ExchangeForm = ({
       gas = await estimateTezos(amount);
     }
 
-    setGasFee(gas.toFixed(6));
+    setGasFee(bigIntToFloat(gas, 18, 18));
   };
 
   return (
