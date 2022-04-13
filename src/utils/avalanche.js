@@ -33,7 +33,7 @@ export const setupAvaxClient = async () => {
   return new Avalanche(
     web3,
     ethAccount,
-    LockManager,
+    LockManager.abi,
     config.network === "mainnet"
       ? config.networks.mainnet.avalanche.lock_manager
       : config.networks.testnet.avalanche.lock_manager
