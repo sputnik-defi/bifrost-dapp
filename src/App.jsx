@@ -82,8 +82,10 @@ const App = () => {
       switch (pairID) {
         case "0":
           await clients.avalanche.lockAVAX(amount, destination);
+          break;
         case "1":
           await clients.avalanche.lockUSDC(amount, destination);
+          break;
       }
     } catch (err) {
       console.log(err);
@@ -97,8 +99,10 @@ const App = () => {
       switch (pairID) {
         case "0":
           await clients.tezos.burnWAVAX(amount, destination);
+          break;
         case "1":
           await clients.tezos.burnWUSDC(amount, destination);
+          break;
       }
     } catch (err) {
       console.log(err);
