@@ -19,15 +19,18 @@ export class Avalanche {
   }
 
   async lockAVAX(amount, destination) {
+    let amt = this.web3.utils.toWei(amount.toString());
     return await this.lockerContract.methods.lockAVAX(destination).send({
-      value: this.web3.utils.toWei(amount),
+      from: this.address,
+      value: amt,
     });
   }
 
   async lockUSDC(amount, destination) {
+    let amt = this.web3.utils.toWei(amount.toString());
     return await this.lockerContract.methods
-      .lockUSDC(amount, destination)
-      .send();
+      .lockUSDC(amt, destination)
+      .send({ from: this.address });
   }
 
   async estimateLockAVAX(amount, destination) {
@@ -35,9 +38,11 @@ export class Avalanche {
       return 0.0;
     }
 
+    let amt = this.web3.utils.toWei(amount.toString());
+
     return await this.lockerContract.methods
       .lockAVAX(destination)
-      .estimateGas({ value: this.web3.utils.toWei(amount.toString()) });
+      .estimateGas({ from: this.address, value: amt });
   }
 
   async estimateLockUSDC(amount, destination) {
@@ -45,8 +50,10 @@ export class Avalanche {
       return 0.0;
     }
 
+    let amt = this.web3.utils.toWei(amount.toString());
+
     return await this.lockerContract.methods
-      .lockUSDC(amount, destination)
+      .lockUSDC(amt, destination)
       .estimateGas();
   }
 }
